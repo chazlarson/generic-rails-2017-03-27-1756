@@ -106,3 +106,10 @@ gem 'email_munger' # Encodes email address to prevent harvesting by bots
 gem 'bootstrap-sass' # Bootstrap styling
 
 gem 'devise' # Provides admin/user authentication
+
+# BEGIN: gems used in db/seeds.rb
+group :test, :development do
+  gem 'faker' # Generates fake data used for seeding the database
+  gem 'ruby-progressbar' # Provides a progress bar to be used during long loop actions
+end
+# END: gems used in db/seeds.rb
