@@ -113,3 +113,12 @@ group :test, :development do
   gem 'ruby-progressbar' # Provides a progress bar to be used during long loop actions
 end
 # END: gems used in db/seeds.rb
+
+# BEGIN: gems used for setting up PostgreSQL in the development environment
+# You do not need these gems if you use SQLite in the development environment.
+# NOTE: Attempts to use "gem install" in the PostgreSQL setup scripts did not pan out.
+gem 'figaro'
+gem 'line_containing'
+gem 'remove_double_blank'
+gem 'string_in_file'
+# END: gems used for setting up PostgreSQL in the development environment
