@@ -102,3 +102,5 @@ end
 # END: Capybara (for integration testing)
 
 gem 'email_munger' # Encodes email address to prevent harvesting by bots
+
+gem 'bootstrap-sass' # Bootstrap styling
