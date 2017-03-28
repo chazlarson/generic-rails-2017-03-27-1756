@@ -14,6 +14,7 @@ Metrics/LineLength:
     - config/environments/production.rb
     - config/initializers/assets.rb
     - config/initializers/backtrace_silencers.rb
+    - config/initializers/devise.rb
     - config/initializers/new_framework_defaults.rb
     - config/initializers/session_store.rb
     - config/initializers/wrap_parameters.rb
