@@ -140,3 +140,5 @@ end
 # END: Better Errors
 
 gem 'pry-rails' # Improves the screen output in the sandbox environment
+
+gem 'timecop', group: :testing # Changes current time, needed for testing the lock duration
