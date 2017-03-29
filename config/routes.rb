@@ -1,7 +1,6 @@
 # == Route Map
 #
 #                    Prefix Verb   URI Pattern                        Controller#Action
-#                 users_new GET    /users/new(.:format)               users#new
 #         new_admin_session GET    /admins/sign_in(.:format)          admins/sessions#new
 #             admin_session POST   /admins/sign_in(.:format)          admins/sessions#create
 #     destroy_admin_session DELETE /admins/sign_out(.:format)         admins/sessions#destroy
@@ -44,7 +43,17 @@
 #           new_user_unlock GET    /users/unlock/new(.:format)        users/unlocks#new
 #               user_unlock GET    /users/unlock(.:format)            users/unlocks#show
 #                           POST   /users/unlock(.:format)            users/unlocks#create
+#                     users GET    /users(.:format)                   users#index
 #                      user GET    /users/:id(.:format)               users#show
+#              search_users POST   /users/search(.:format)            users#index
+#                           GET    /users(.:format)                   users#index
+#                           POST   /users(.:format)                   users#create
+#                  new_user GET    /users/new(.:format)               users#new
+#                 edit_user GET    /users/:id/edit(.:format)          users#edit
+#                           GET    /users/:id(.:format)               users#show
+#                           PATCH  /users/:id(.:format)               users#update
+#                           PUT    /users/:id(.:format)               users#update
+#                           DELETE /users/:id(.:format)               users#destroy
 #                      root GET    /                                  static_pages#home
 #                     about GET    /about(.:format)                   static_pages#about
 #                   contact GET    /contact(.:format)                 static_pages#contact
@@ -52,8 +61,6 @@
 
 # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 Rails.application.routes.draw do
-  get 'users/new'
-
   # BEGIN: admin
   devise_for :admins,
              controllers: { registrations: 'admins/registrations',
@@ -70,7 +77,10 @@ Rails.application.routes.draw do
                             passwords: 'users/passwords',
                             confirmations: 'users/confirmations',
                             unlocks: 'users/unlocks' }
-  resources :users, only: [:show]
+  resources :users, only: [:show, :index]
+  resources :users do
+    collection { post :search, to: 'users#index' }
+  end
   # END: user section
 
   # BEGIN: static pages

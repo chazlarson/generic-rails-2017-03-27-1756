@@ -142,3 +142,9 @@ end
 gem 'pry-rails' # Improves the screen output in the sandbox environment
 
 gem 'timecop', group: :testing # Changes current time, needed for testing the lock duration
+
+# Pagination gems
+gem 'bootstrap-will_paginate' # Twitter Bootstrap for pagination
+gem 'will_paginate' # For pagination
+
+gem 'ransack' # For searching users

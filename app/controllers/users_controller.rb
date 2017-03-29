@@ -4,6 +4,7 @@ class UsersController < ApplicationController
   # BEGIN: before_action section
   ##############################
   before_action :may_show_user, only: [:show]
+  before_action :may_index_user, only: [:index]
   ############################
   # END: before_action section
   ############################
@@ -14,6 +15,21 @@ class UsersController < ApplicationController
   def show
     @user = User.find(params[:id])
   end
+
+  # rubocop:disable Metrics/AbcSize
+  def index
+    @search = User.search(params[:q].presence)
+    @users = @search.result.paginate(page: params[:page])
+    # NOTE: The following line specifies the sort order.
+    # This is reflected in the default sort criteria shown.
+    # The user is free to remove these default criteria.
+    @search.sorts = 'last_name asc' if @search.sorts.empty?
+    @search.build_condition if @search.conditions.empty?
+    @search.build_sort if @search.sorts.empty?
+    @users = @search.result
+    @users = @users.order('last_name').page(params[:page])
+  end
+  # rubocop:enable Metrics/AbcSize
   #####################
   # END: action section
   #####################
@@ -32,6 +48,11 @@ class UsersController < ApplicationController
     return redirect_to(root_path) unless admin_or_correct_user
   end
   helper_method :may_show_user
+
+  def may_index_user
+    return redirect_to(root_path) unless admin_signed_in?
+  end
+  helper_method :may_index_user
   ######################
   # END: private section
   ######################
