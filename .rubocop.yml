@@ -42,3 +42,4 @@ Style/CommentIndentation:
 Style/SymbolArray:
   Exclude:
     - app/controllers/users/registrations_controller.rb
+    - app/controllers/admins/registrations_controller.rb
