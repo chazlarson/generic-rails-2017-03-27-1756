@@ -138,3 +138,5 @@ group :development do
   gem 'binding_of_caller'
 end
 # END: Better Errors
+
+gem 'pry-rails' # Improves the screen output in the sandbox environment
