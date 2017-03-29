@@ -84,7 +84,28 @@ class UsersControllerTest < ActionController::TestCase
   ##############
   # BEGIN: index
   ##############
+  test 'should redirect index page when not logged in' do
+    get :index
+    assert_redirected_to root_path
+  end
 
+  test 'should redirect index page when logged in as a user' do
+    sign_in @u1, scope: :user
+    get :index
+    assert_redirected_to root_path
+  end
+
+  test 'should not redirect index page when logged in as a super admin' do
+    sign_in @a1, scope: :admin
+    get :index
+    assert :success
+  end
+
+  test 'should not redirect index page when logged in as a regular admin' do
+    sign_in @a4, scope: :admin
+    get :index
+    assert :success
+  end
   ############
   # END: index
   ############
