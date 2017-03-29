@@ -16,6 +16,8 @@ echo '----------------------------------'
 echo 'bundle exec rails_best_practices .'
 bundle exec rails_best_practices .
 
+sh outline-short.sh
+
 echo '----------'
 echo 'git status'
 git status
