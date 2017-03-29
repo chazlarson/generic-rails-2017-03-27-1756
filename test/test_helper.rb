@@ -47,3 +47,17 @@ def teardown_universal
   Capybara.reset_sessions!
   Capybara.use_default_driver
 end
+
+# rubocop:disable Metrics/ParameterLists
+def sign_up_user(name_u, name_l, name_f, e, p1, p2)
+  visit root_path
+  click_on 'Sign up now!'
+  fill_in('Last name', with: name_l)
+  fill_in('First name', with: name_f)
+  fill_in('Username', with: name_u)
+  fill_in('Email', with: e)
+  fill_in('Password', with: p1) # not yet changed
+  fill_in('Password confirmation', with: p2)
+  click_button('Sign up')
+end
+# rubocop:enable Metrics/ParameterLists
