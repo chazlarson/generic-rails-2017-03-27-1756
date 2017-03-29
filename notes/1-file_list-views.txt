@@ -7,6 +7,7 @@ config/routes.rb
 # == Route Map
 #
 #                    Prefix Verb   URI Pattern                        Controller#Action
+#                 users_new GET    /users/new(.:format)               users#new
 #         new_admin_session GET    /admins/sign_in(.:format)          admins/sessions#new
 #             admin_session POST   /admins/sign_in(.:format)          admins/sessions#create
 #     destroy_admin_session DELETE /admins/sign_out(.:format)         admins/sessions#destroy
@@ -49,6 +50,7 @@ config/routes.rb
 #           new_user_unlock GET    /users/unlock/new(.:format)        users/unlocks#new
 #               user_unlock GET    /users/unlock(.:format)            users/unlocks#show
 #                           POST   /users/unlock(.:format)            users/unlocks#create
+#                      user GET    /users/:id(.:format)               users#show
 #                      root GET    /                                  static_pages#home
 #                     about GET    /about(.:format)                   static_pages#about
 #                   contact GET    /contact(.:format)                 static_pages#contact
@@ -56,6 +58,8 @@ config/routes.rb
 
 # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 Rails.application.routes.draw do
+  get 'users/new'
+
   # BEGIN: admin
   devise_for :admins,
              controllers: { registrations: 'admins/registrations',
@@ -72,6 +76,7 @@ Rails.application.routes.draw do
                             passwords: 'users/passwords',
                             confirmations: 'users/confirmations',
                             unlocks: 'users/unlocks' }
+  resources :users, only: [:show]
   # END: user section
 
   # BEGIN: static pages
@@ -94,9 +99,10 @@ test/integration
 ├── users_login_test.rb
 ├── users_password_reset_test.rb
 ├── users_resend_conf_test.rb
+├── users_show_test.rb
 └── users_signup_test.rb
 
-0 directories, 13 files
+0 directories, 14 files
 
 app/views
 ├── admins
@@ -149,7 +155,8 @@ app/views
     │   └── new.html.erb
     ├── shared
     │   └── _links.html.erb
+    ├── show.html.erb
     └── unlocks
         └── new.html.erb
 
-18 directories, 34 files
+18 directories, 35 files
