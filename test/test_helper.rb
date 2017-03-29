@@ -50,6 +50,7 @@ end
 
 # rubocop:disable Metrics/AbcSize
 # rubocop:disable Metrics/MethodLength
+
 # Assign variables to test fixtures
 # To be executed before each test
 def setup_universal
@@ -145,6 +146,15 @@ end
 def begin_user_password_reset(e)
   visit root_path
   click_on 'Login'
+  click_on 'Forgot your password?'
+  fill_in('Email', with: e)
+  click_on 'Send me reset password instructions'
+end
+
+def begin_admin_password_reset(e)
+  visit root_path
+  click_on 'Login'
+  click_on 'Admin Login'
   click_on 'Forgot your password?'
   fill_in('Email', with: e)
   click_on 'Send me reset password instructions'
