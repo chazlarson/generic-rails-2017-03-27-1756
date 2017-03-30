@@ -81,6 +81,7 @@ class UsersControllerTest < ActionController::TestCase
   ###########
   # END: show
   ###########
+
   ##############
   # BEGIN: index
   ##############
@@ -109,10 +110,41 @@ class UsersControllerTest < ActionController::TestCase
   ############
   # END: index
   ############
+
   ###############
   # BEGIN: delete
   ###############
+  test 'should not allow visitor to delete user' do
+    get :destroy, params: { id: @u7 }
+    assert_redirected_to root_path
+  end
 
+  # NOTE: User can delete self through edit registration form.
+  test 'should not allow user to delete self' do
+    sign_in @u7, scope: :user
+    get :destroy, params: { id: @u7 }
+    assert_redirected_to root_path
+  end
+
+  test 'should not allow user to delete another user' do
+    sign_in @u1, scope: :user
+    get :destroy, params: { id: @u7 }
+    assert_redirected_to root_path
+  end
+
+  test 'should allow super admin to delete user' do
+    sign_in @a1, scope: :admin
+    get :destroy, params: { id: @u7 }
+    assert :success
+    assert_redirected_to users_path
+  end
+
+  test 'should allow regular admin to delete user' do
+    sign_in @a4, scope: :admin
+    get :destroy, params: { id: @u7 }
+    assert :success
+    assert_redirected_to users_path
+  end
   #############
   # END: delete
   #############
