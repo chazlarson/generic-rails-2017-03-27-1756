@@ -29,7 +29,7 @@
 
 #
 class User < ApplicationRecord
- # Specify the number of entries per page given use of the will_paginate gem
+  # Specify the number of entries per page given use of the will_paginate gem
   self.per_page = 50
 
   # Limit the parameters available for searching the user database

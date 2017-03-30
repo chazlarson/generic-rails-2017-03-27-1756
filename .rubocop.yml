@@ -7,6 +7,10 @@ AllCops:
     - tmp/vulnerabilities/lib/*
     - tmp/vulnerabilities/spec/*
 
+Metrics/ClassLength:
+  Exclude:
+    - test/controllers/users_controller_test.rb
+
 Metrics/LineLength:
   Exclude:
     - config/application.rb

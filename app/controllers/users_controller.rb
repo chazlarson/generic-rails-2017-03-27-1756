@@ -5,6 +5,7 @@ class UsersController < ApplicationController
   ##############################
   before_action :may_show_user, only: [:show]
   before_action :may_index_user, only: [:index]
+  before_action :may_destroy_user, only: [:destroy]
   ############################
   # END: before_action section
   ############################
@@ -30,6 +31,12 @@ class UsersController < ApplicationController
     @users = @users.order('last_name').page(params[:page])
   end
   # rubocop:enable Metrics/AbcSize
+
+  def destroy
+    User.find(params[:id]).destroy
+    flash[:success] = 'User deleted'
+    redirect_to(users_path)
+  end
   #####################
   # END: action section
   #####################
@@ -53,6 +60,11 @@ class UsersController < ApplicationController
     return redirect_to(root_path) unless admin_signed_in?
   end
   helper_method :may_index_user
+
+  def may_destroy_user
+    return redirect_to(root_path) unless admin_signed_in?
+  end
+  helper_method :may_destroy_user
   ######################
   # END: private section
   ######################
