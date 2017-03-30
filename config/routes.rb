@@ -1,6 +1,7 @@
 # == Route Map
 #
 #                    Prefix Verb   URI Pattern                        Controller#Action
+#                admins_new GET    /admins/new(.:format)              admins#new
 #         new_admin_session GET    /admins/sign_in(.:format)          admins/sessions#new
 #             admin_session POST   /admins/sign_in(.:format)          admins/sessions#create
 #     destroy_admin_session DELETE /admins/sign_out(.:format)         admins/sessions#destroy
@@ -22,6 +23,7 @@
 #          new_admin_unlock GET    /admins/unlock/new(.:format)       admins/unlocks#new
 #              admin_unlock GET    /admins/unlock(.:format)           admins/unlocks#show
 #                           POST   /admins/unlock(.:format)           admins/unlocks#create
+#                     admin GET    /admins/:id(.:format)              admins#show
 #          new_user_session GET    /users/sign_in(.:format)           users/sessions#new
 #              user_session POST   /users/sign_in(.:format)           users/sessions#create
 #      destroy_user_session DELETE /users/sign_out(.:format)          users/sessions#destroy
@@ -61,6 +63,8 @@
 
 # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 Rails.application.routes.draw do
+  get 'admins/new'
+
   # BEGIN: admin
   devise_for :admins,
              controllers: { registrations: 'admins/registrations',
@@ -68,6 +72,7 @@ Rails.application.routes.draw do
                             passwords: 'admins/passwords',
                             confirmations: 'admins/confirmations',
                             unlocks: 'admins/unlocks' }
+  resources :admins, only: [:show]
   # END: admin
 
   # BEGIN: user section
